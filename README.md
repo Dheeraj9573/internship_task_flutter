@@ -8,7 +8,7 @@ This app demonstrates **CRUD operations** (Create, Read, Update, Delete) using a
 ## 👤 Author
 **Name:** Thuppudu Dheeraj Kumar  
 **College:** VNR Vignana Jyothi Institute of Engineering and Technology  
-**GitLab ID:** Dheeraj3103  
+**GitHub:** [Dheeraj9573](https://github.com/Dheeraj9573/internship_task_flutter)
 
 ---
 
@@ -28,22 +28,6 @@ This app demonstrates **CRUD operations** (Create, Read, Update, Delete) using a
 - **Database:** db.json (mock data file)  
 
 ---
-
-## 📂 Project Structure
-internship_task/
-│-- lib/
-│ ├── main.dart
-│ ├── models/
-│ │ └── object_model.dart
-│ ├── services/
-│ │ └── object_service.dart
-│ ├── views/
-│ │ ├── object_list_page.dart
-│ │ ├── add_object_page.dart
-│ │ └── object_detail_page.dart
-│-- db.json # Fake REST API Database
-│-- pubspec.yaml # Flutter dependencies
-│-- README.md
 
 ## 🖼️ Screenshots
 
@@ -74,7 +58,3 @@ Below are some screenshots demonstrating the functionality of the app:
 *Confirmation popup when deleting an object.*
 
 ---
-
-
-
-
