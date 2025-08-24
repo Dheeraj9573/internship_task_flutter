@@ -43,6 +43,17 @@ Download and install the Android app directly from this mobile-friendly link:
 
 ## 🖼️ Screenshots
 
+### 0️⃣ Data Model
+![Data Model](assets/Screenshot%202025-08-24%20232055.png)  
+*Data Model:  
+The API returns objects like:  
+```json
+{
+  "id": "1",
+  "name": "C",
+  "description": "A powerful low-level programming language used for system programming and embedded systems."
+}
+
 ### 1️⃣ Enter Phone Number
 ![Enter Phone Number](assets/Screenshot%202025-08-24%20192323.png)  
 *Screen for entering a phone number for authentication or verification.*
