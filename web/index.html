@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flutter Firebase App</title>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+    <script>
+      // Your Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA2GlX47yhljscJZFRkp0k5gyzMEZ4vSU",
+        authDomain: "internship-a3635.firebaseapp.com",
+        projectId: "internship-a3635",
+        storageBucket: "internship-a3635.appspot.com",
+        messagingSenderId: "272203851951",
+        appId: "1:272203851951:web:2388412fdeb0140e24cc5a"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+      #recaptcha-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ✅ Required div for reCAPTCHA -->
+    <div id="recaptcha-container"></div>
+
+    <!-- Flutter bootstrap -->
+    <script src="flutter_bootstrap.js" async></script>
+  </body>
+</html>

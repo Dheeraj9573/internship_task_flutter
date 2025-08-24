@@ -1,0 +1,54 @@
+{
+  "objects": [
+    {
+      "id": 1,
+      "name": "C",
+      "description": "A powerful low-level programming language used for system programming and embedded systems."
+    },
+    {
+      "id": 2,
+      "name": "C++",
+      "description": "An extension of C with object-oriented features, widely used for game engines and performance-critical applications."
+    },
+    {
+      "id": 3,
+      "name": "Java",
+      "description": "Object-oriented, platform-independent, widely used for enterprise and Android applications."
+    },
+    {
+      "id": 4,
+      "name": "Python",
+      "description": "High-level, interpreted language popular for AI, machine learning, and web development."
+    },
+    {
+      "id": 5,
+      "name": "JavaScript",
+      "description": "The language of the web, primarily used for frontend development and full-stack solutions."
+    },
+    {
+      "id": 6,
+      "name": "MERN Stack",
+      "description": "A full-stack development stack consisting of MongoDB, Express.js, React, and Node.js."
+    },
+    {
+      "id": 7,
+      "name": "Angular",
+      "description": "A TypeScript-based web framework maintained by Google for building scalable applications."
+    },
+    {
+      "id": 8,
+      "name": "Flask",
+      "description": "A lightweight Python web framework used for APIs and microservices."
+    },
+    {
+      "id": 9,
+      "name": "Rust",
+      "description": "A systems programming language focused on safety, concurrency, and performance."
+    },
+    {
+      "id": 10,
+      "name": "Django",
+      "description": "A high-level Python web framework that encourages rapid development and clean design."
+    }
+  ]
+}
