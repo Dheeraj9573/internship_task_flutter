@@ -8,7 +8,19 @@ This app demonstrates **CRUD operations** (Create, Read, Update, Delete) using a
 ## 👤 Author
 **Name:** Thuppudu Dheeraj Kumar  
 **College:** VNR Vignana Jyothi Institute of Engineering and Technology  
-**GitHub:** [Dheeraj9573](https://github.com/Dheeraj9573/internship_task_flutter)
+**GitHub:** [Dheeraj9573](https://github.com/Dheeraj9573/internship_task_flutter)  
+
+---
+
+## 🌐 Web App
+You can access the live web version of the app here:  
+[Programming & Tools Dashboard Web App](https://internship-a3635.web.app/)
+
+---
+
+## 📱 Android APK
+Download and install the Android app directly from this mobile-friendly link:  
+[Download APK](https://www.dropbox.com/scl/fi/5fqrvhxbhldaij9205129/app-release.apk?rlkey=fris47uy96dkfi197smczg0r2&st=452n4ud9&dl=1)
 
 ---
 
@@ -29,10 +41,7 @@ This app demonstrates **CRUD operations** (Create, Read, Update, Delete) using a
 
 ---
 
-
 ## 🖼️ Screenshots
-
-Below are some screenshots demonstrating the functionality of the app:
 
 ### 1️⃣ Enter Phone Number
 ![Enter Phone Number](assets/Screenshot%202025-08-24%20192323.png)  
@@ -57,5 +66,3 @@ Below are some screenshots demonstrating the functionality of the app:
 ### 6️⃣ Delete Object
 ![Delete Object](assets/Screenshot%202025-08-24%20192117.png)  
 *Confirmation popup when deleting an object.*
-
----
