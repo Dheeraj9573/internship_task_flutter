@@ -44,8 +44,8 @@ Download and install the Android app directly from this mobile-friendly link:
 ## 🖼️ Screenshots
 
 ### 1️⃣ Data Model
-![Data Model](assets/Screenshot%202025-08-24%20232055.png)  
-*Data Model implemented in Dart matching the API response with `fromJson` and `toJson`.*
+![Data Model](assets/Screenshot_2025-08-24_232055.png)  
+*Data Model implemented in Dart matching the API response with fromJson and toJson.*
 
 ### 2️⃣ Enter Phone Number
 ![Enter Phone Number](assets/Screenshot%202025-08-24%20192323.png)  
