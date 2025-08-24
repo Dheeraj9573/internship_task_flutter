@@ -43,37 +43,30 @@ Download and install the Android app directly from this mobile-friendly link:
 
 ## 🖼️ Screenshots
 
-### 0️⃣ Data Model
+### 1️⃣ Data Model
 ![Data Model](assets/Screenshot%202025-08-24%20232055.png)  
-*Data Model:  
-The API returns objects like:  
-```json
-{
-  "id": "1",
-  "name": "C",
-  "description": "A powerful low-level programming language used for system programming and embedded systems."
-}
+*Data Model implemented in Dart matching the API response with `fromJson` and `toJson`.*
 
-### 1️⃣ Enter Phone Number
+### 2️⃣ Enter Phone Number
 ![Enter Phone Number](assets/Screenshot%202025-08-24%20192323.png)  
 *Screen for entering a phone number for authentication or verification.*
 
-### 2️⃣ Enter OTP
+### 3️⃣ Enter OTP
 ![Enter OTP](assets/Screenshot%202025-08-24%20192418.png)  
 *Screen for entering the OTP during authentication or verification.*
 
-### 3️⃣ Dashboard
+### 4️⃣ Dashboard
 ![Dashboard](assets/Screenshot%202025-08-24%20192452.png)  
 *Dashboard view showing all objects and their details.*
 
-### 4️⃣ Add Object
+### 5️⃣ Add Object
 ![Add Object](assets/Screenshot%202025-08-24%20192523.png)  
 *Form to add a new object to the dashboard.*
 
-### 5️⃣ Update Object
+### 6️⃣ Update Object
 ![Update Object](assets/Screenshot%202025-08-24%20192117.png)  
 *Editing/updating an existing object with pre-filled details.*
 
-### 6️⃣ Delete Object
+### 7️⃣ Delete Object
 ![Delete Object](assets/Screenshot%202025-08-24%20192117.png)  
 *Confirmation popup when deleting an object.*
