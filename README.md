@@ -133,3 +133,43 @@ flutter:
 
   assets:
     - assets/
+
+---
+
+🗂️ Code Structure & Design
+
+lib/
+├─ main.dart             # App entry point
+├─ controllers/
+│  ├─ auth_controller.dart    # Firebase Phone Auth logic
+│  ├─ object_controller.dart  # CRUD operations & state management
+├─ models/
+│  ├─ object_model.dart      # Dart model for JSON data
+├─ services/
+│  ├─ object_service.dart    # API calls (GET, POST, PUT, DELETE)
+├─ views/
+│  ├─ auth/
+│  │  ├─ phone_input_page.dart
+│  │  └─ otp_verification_page.dart
+│  ├─ dashboard/
+│  │  ├─ object_list_page.dart
+│  │  ├─ add_object_page.dart
+│  │  └─ edit_object_page.dart
+└─ utils/
+   └─ validators.dart        # Input validation (JSON & form checks)
+
+---
+
+   Design Process
+
+Authentication Layer: Firebase Phone Auth for secure login (web + mobile).
+
+API Layer: ObjectService handles all REST API calls using HTTP client.
+
+State Management: GetX controllers manage reactive state for UI updates.
+
+UI Layer: Material design with responsiveness for web and mobile.
+
+Error Handling & UX: Loading indicators, form validation, empty/error states.
+
+---
