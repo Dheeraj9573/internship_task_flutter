@@ -159,17 +159,3 @@ lib/
    └─ validators.dart        # Input validation (JSON & form checks)
 
 ---
-
-   Design Process
-
-Authentication Layer: Firebase Phone Auth for secure login (web + mobile).
-
-API Layer: ObjectService handles all REST API calls using HTTP client.
-
-State Management: GetX controllers manage reactive state for UI updates.
-
-UI Layer: Material design with responsiveness for web and mobile.
-
-Error Handling & UX: Loading indicators, form validation, empty/error states.
-
----
