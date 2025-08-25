@@ -29,6 +29,7 @@ Download and install the Android app directly from this mobile-friendly link:
 - 🔹 Add new objects with title and description  
 - 🔹 Edit existing objects  
 - 🔹 Delete objects from the dashboard  
+- 🔹 Firebase Phone Authentication (web + mobile)  
 - 🔹 Backend served by `json-server` (fake REST API)  
 - 🔹 Frontend built with **Flutter (Web + Mobile support)**  
 
@@ -38,8 +39,26 @@ Download and install the Android app directly from this mobile-friendly link:
 - **Frontend:** Flutter (Dart, Material UI, GetX for state management)  
 - **Backend:** json-server (REST API, running locally)  
 - **Database:** db.json (mock data file)  
+- **Authentication:** Firebase Phone Auth (web & mobile)
 
 ---
+
+## ⚙️ Firebase Phone Auth Setup
+
+1. **Firebase Project**  
+   1. Go to [Firebase Console](https://console.firebase.google.com/).  
+   2. Create a new project (or use an existing one).  
+
+2. **Add Platforms**  
+   - **Web:** Register your web app, copy the Firebase config, and add it to `web/index.html`.  
+   - **Android:** Register Android app, download `google-services.json`, and place it in `android/app/`.  
+
+3. **Enable Phone Authentication**  
+   - Go to **Authentication → Sign-in method → Phone** and enable it.  
+   - Configure test phone numbers (optional for development).  
+
+---
+
 
 ## 🖼️ Screenshots
 
@@ -70,3 +89,47 @@ Download and install the Android app directly from this mobile-friendly link:
 ### 7️⃣ Delete Object
 ![Delete Object](assets/Screenshot%202025-08-24%20192117.png)  
 *Confirmation popup when deleting an object.*
+
+
+## 📦 Dependencies (`pubspec.yaml`)
+```yaml
+name: internship_task
+description: A Flutter project for internship assignment
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase
+  firebase_core: ^4.0.0
+  firebase_auth: ^6.0.1
+  cloud_firestore: ^6.0.0
+
+  # HTTP client for REST API
+  http: ^1.2.2
+
+  # State management
+  get: ^4.6.6
+
+  # Country phone input field
+  intl_phone_field: ^3.2.0
+
+  # Icons & material design
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
