@@ -1,32 +1,51 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import '../views/otp_screen.dart';
-import '../views/object_list_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  late ConfirmationResult _confirmationResult;
+  var verificationId = "".obs;
 
   // Send OTP
-  Future<void> sendOTP(String phone) async {
-    try {
-      _confirmationResult = await _auth.signInWithPhoneNumber(phone);
-      Get.to(() => OTPScreen()); // Navigate to OTP screen
-    } catch (e) {
-      Get.snackbar("Error", e.toString());
-    }
+  Future<void> sendOTP(String phone, BuildContext context) async {
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phone,
+      timeout: const Duration(seconds: 60),
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await _auth.signInWithCredential(credential);
+        Get.offAllNamed("/dashboard");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("❌ ${e.message}")));
+      },
+      codeSent: (String verId, int? resendToken) {
+        verificationId.value = verId;
+        Get.toNamed("/otp");
+      },
+      codeAutoRetrievalTimeout: (String verId) {
+        verificationId.value = verId;
+      },
+    );
   }
 
   // Verify OTP
   Future<void> verifyOTP(String otp) async {
     try {
-      final UserCredential userCred = await _confirmationResult.confirm(otp);
-
-      if (userCred.user != null) {
-        Get.offAll(() => const ObjectListPage()); // Dashboard after login
-      }
+      final credential = PhoneAuthProvider.credential(
+        verificationId: verificationId.value,
+        smsCode: otp,
+      );
+      await _auth.signInWithCredential(credential);
+      Get.offAllNamed("/dashboard");
     } catch (e) {
-      Get.snackbar("Error", e.toString());
+      Get.snackbar("Error", "Invalid OTP");
     }
+  }
+
+  // Logout
+  Future<void> logout() async {
+    await _auth.signOut();
+    Get.offAllNamed("/");
   }
 }

@@ -5,29 +5,35 @@
     <title>Flutter Firebase App</title>
 
     <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
-    <script>
-      // Your Firebase configuration
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+      // ✅ Your Firebase config
       const firebaseConfig = {
         apiKey: "AIzaSyA2GlX47yhljscJZFRkp0k5gyzMEZ4vSU",
         authDomain: "internship-a3635.firebaseapp.com",
         projectId: "internship-a3635",
         storageBucket: "internship-a3635.appspot.com",
         messagingSenderId: "272203851951",
-        appId: "1:272203851951:web:2388412fdeb0140e24cc5a"
+        appId: "1:272203851951:web:2388412fdeb0140e24cc5a",
+        measurementId: "G-7YNR4TL4TP",
       };
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
+      // ✅ Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
     </script>
 
     <style>
       body {
         margin: 0;
         font-family: Arial, sans-serif;
+        background: #f5f5f5;
       }
+      /* ✅ reCAPTCHA container styling */
       #recaptcha-container {
         margin-top: 20px;
         display: flex;
@@ -35,11 +41,12 @@
       }
     </style>
   </head>
+
   <body>
-    <!-- ✅ Required div for reCAPTCHA -->
+    <!-- ✅ Important: required for reCAPTCHA -->
     <div id="recaptcha-container"></div>
 
-    <!-- Flutter bootstrap -->
+    <!-- ✅ Flutter bootstrap script -->
     <script src="flutter_bootstrap.js" async></script>
   </body>
 </html>

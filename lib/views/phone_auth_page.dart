@@ -1,75 +1,82 @@
-import 'dart:ui_web' as ui; // ✅ Needed for Flutter Web
-import 'dart:html';          // For DivElement
-
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import '../controllers/auth_controller.dart';
+import 'otp_screen.dart';
 
-class PhoneAuthPage extends StatelessWidget {
-  final phoneController = TextEditingController();
-  final AuthController authC = Get.find();
+class PhoneAuthPage extends StatefulWidget {
+  const PhoneAuthPage({super.key});
 
-  PhoneAuthPage({super.key}) {
-    // Register reCAPTCHA container for Web
-    ui.platformViewRegistry.registerViewFactory(
-      'recaptcha-container',
-      (int viewId) => DivElement()..id = 'recaptcha-container',
+  @override
+  State<PhoneAuthPage> createState() => _PhoneAuthPageState();
+}
+
+class _PhoneAuthPageState extends State<PhoneAuthPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _phoneController = TextEditingController();
+  bool loading = false;
+
+  Future<void> _verifyPhone() async {
+    String phone = _phoneController.text.trim();
+    if (phone.isEmpty) {
+      Get.snackbar("Error", "Enter phone number");
+      return;
+    }
+
+    setState(() => loading = true);
+
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phone,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await _auth.signInWithCredential(credential);
+        Get.offAllNamed("/dashboard");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        setState(() => loading = false);
+        Get.snackbar("Error", e.message ?? "Verification failed");
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        setState(() => loading = false);
+        Get.to(() => OtpScreen(verificationId: verificationId));
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+      timeout: const Duration(seconds: 60),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("📱 Phone Login")),
+      appBar: AppBar(title: const Text("Phone Auth")),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 40),
-            Icon(Icons.phone_android, size: 100, color: Colors.blueAccent),
-            const SizedBox(height: 30),
-            const Text("Enter your phone number (e.g. +91XXXXXXXXXX)",
-                style: TextStyle(fontSize: 16)),
-            const SizedBox(height: 20),
-
             TextField(
-              controller: phoneController,
+              controller: _phoneController,
               keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                labelText: "Phone Number",
-                hintText: "+91XXXXXXXXXX",
-                prefixIcon: const Icon(Icons.phone),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+              decoration: const InputDecoration(
+                labelText: "Phone Number (+91xxxxxxxxxx)",
               ),
             ),
-
             const SizedBox(height: 20),
-
-            // reCAPTCHA placeholder
+            loading
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: _verifyPhone,
+                    child: const Text("Verify"),
+                  ),
+            const SizedBox(height: 20),
+            // ✅ reCAPTCHA attaches here automatically
+            const SizedBox(height: 20),
+            const Text("reCAPTCHA will appear below:"),
+            const SizedBox(height: 10),
             SizedBox(
               height: 80,
-              child: HtmlElementView(viewType: 'recaptcha-container'),
-            ),
-
-            const SizedBox(height: 20),
-
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  final phone = phoneController.text.trim();
-                  if (phone.isNotEmpty) {
-                    authC.sendOTP(phone);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("⚠ Enter a valid phone")),
-                    );
-                  }
-                },
-                child: const Text("Send OTP"),
+              child: Center(
+                child: HtmlElementView(
+                  viewType: 'recaptcha-container',
+                ),
               ),
             ),
           ],

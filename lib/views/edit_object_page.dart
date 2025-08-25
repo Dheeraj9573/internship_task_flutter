@@ -1,142 +1,61 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../models/object_model.dart';
+import '../services/object_service.dart';
 import 'package:get/get.dart';
-import 'object_list_page.dart';
 
-class EditObjectPage extends StatefulWidget {
-  final String objectId;
+class EditObjectPage extends StatelessWidget {
+  final ObjectModel object;
+  final TextEditingController _nameController;
+  final TextEditingController _descController;
 
-  const EditObjectPage({super.key, required this.objectId});
+  EditObjectPage({super.key, required this.object})
+      : _nameController = TextEditingController(text: object.name),
+        _descController = TextEditingController(text: object.description);
 
-  @override
-  State<EditObjectPage> createState() => _EditObjectPageState();
-}
-
-class _EditObjectPageState extends State<EditObjectPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  bool _loading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadObject();
-  }
-
-  Future<void> _loadObject() async {
-    try {
-      final doc = await FirebaseFirestore.instance
-          .collection('objects')
-          .doc(widget.objectId)
-          .get();
-
-      if (doc.exists) {
-        final data = doc.data()!;
-        _titleController.text = data['title'] ?? "";
-        _descriptionController.text = data['description'] ?? "";
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("⚠ Error loading object: $e")),
-      );
+  void _updateObject(BuildContext context) async {
+    if (_nameController.text.trim().isEmpty ||
+        _descController.text.trim().isEmpty) {
+      Get.snackbar("Error", "Please enter all fields");
+      return;
     }
-  }
 
-  Future<void> _updateObject() async {
-    if (!_formKey.currentState!.validate()) return;
-
-    setState(() => _loading = true);
+    final updatedObj = ObjectModel(
+      id: object.id,
+      name: _nameController.text.trim(),
+      description: _descController.text.trim(),
+    );
 
     try {
-      await FirebaseFirestore.instance
-          .collection('objects')
-          .doc(widget.objectId)
-          .update({
-        'title': _titleController.text.trim(),
-        'description': _descriptionController.text.trim(),
-      });
-
-      Get.offAll(() => const ObjectListPage());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("✅ Object updated successfully")),
-      );
+      await ObjectService.updateObject(updatedObj);
+      Navigator.pop(context, true);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("⚠ Failed to update object: $e")),
-      );
-    } finally {
-      setState(() => _loading = false);
+      Get.snackbar("Error", e.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("✏ Edit Object"),
-        backgroundColor: Colors.blueAccent,
-        elevation: 2,
-      ),
+      appBar: AppBar(title: const Text("Edit Object")),
       body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _titleController,
-                decoration: InputDecoration(
-                  labelText: "Title",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  prefixIcon: const Icon(Icons.title),
-                ),
-                validator: (value) =>
-                    value!.isEmpty ? "Enter a title" : null,
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: _descriptionController,
-                maxLines: 3,
-                decoration: InputDecoration(
-                  labelText: "Description",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  prefixIcon: const Icon(Icons.description),
-                ),
-                validator: (value) =>
-                    value!.isEmpty ? "Enter a description" : null,
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  icon: _loading
-                      ? const SizedBox(
-                          width: 18,
-                          height: 18,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          ),
-                        )
-                      : const Icon(Icons.save),
-                  label: Text(_loading ? "Updating..." : "Update Object"),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    backgroundColor: Colors.blueAccent,
-                  ),
-                  onPressed: _loading ? null : _updateObject,
-                ),
-              ),
-            ],
-          ),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _nameController,
+              decoration: const InputDecoration(labelText: "Name"),
+            ),
+            TextField(
+              controller: _descController,
+              decoration: const InputDecoration(labelText: "Description"),
+              maxLines: 5,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => _updateObject(context),
+              child: const Text("Update"),
+            ),
+          ],
         ),
       ),
     );

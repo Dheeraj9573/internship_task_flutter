@@ -1,76 +1,54 @@
-// lib/views/add_object_page.dart
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../models/object_model.dart';
 import '../services/object_service.dart';
+import 'package:get/get.dart';
 
-class AddObjectPage extends StatefulWidget {
-  const AddObjectPage({super.key});
+class AddObjectPage extends StatelessWidget {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descController = TextEditingController();
 
-  @override
-  State<AddObjectPage> createState() => _AddObjectPageState();
-}
+  void _saveObject(BuildContext context) async {
+    if (_nameController.text.trim().isEmpty ||
+        _descController.text.trim().isEmpty) {
+      Get.snackbar("Error", "Please enter all fields");
+      return;
+    }
 
-class _AddObjectPageState extends State<AddObjectPage> {
-  final _titleController = TextEditingController();
-  final _descController = TextEditingController();
-  bool _loading = false;
-
-  Future<void> _saveObject() async {
-    if (_titleController.text.isEmpty || _descController.text.isEmpty) return;
-
-    setState(() => _loading = true);
-
-    final newObject = ObjectModel(
+    final newObj = ObjectModel(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
-      name: _titleController.text.trim(), // ✅ Updated
+      name: _nameController.text.trim(),
       description: _descController.text.trim(),
     );
 
-    await ObjectService.addObject(newObject);
-
-    setState(() => _loading = false);
-    Get.back(); // go back to list page
+    try {
+      await ObjectService.addObject(newObj);
+      Navigator.pop(context, true);
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("➕ Add Object"),
-        backgroundColor: Colors.blueAccent,
-      ),
+      appBar: AppBar(title: const Text("Add Object")),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: "Object Name",
-                border: OutlineInputBorder(),
-              ),
+              controller: _nameController,
+              decoration: const InputDecoration(labelText: "Name"),
             ),
-            const SizedBox(height: 20),
             TextField(
               controller: _descController,
-              decoration: const InputDecoration(
-                labelText: "Description",
-                border: OutlineInputBorder(),
-              ),
-              maxLines: 3,
+              decoration: const InputDecoration(labelText: "Description"),
+              maxLines: 5,
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 14, horizontal: 40),
-              ),
-              onPressed: _loading ? null : _saveObject,
-              child: _loading
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text("Save Object"),
+              onPressed: () => _saveObject(context),
+              child: const Text("Save"),
             ),
           ],
         ),

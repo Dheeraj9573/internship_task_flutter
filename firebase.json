@@ -1,1 +1,16 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"internship-a3635","appId":"1:272203851951:android:1165435c2c78ea4f24cc5a","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"internship-a3635","configurations":{"android":"1:272203851951:android:1165435c2c78ea4f24cc5a","web":"1:272203851951:web:2388412fdeb0140e24cc5a"}}}}}}
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
