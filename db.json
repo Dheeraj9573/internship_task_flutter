@@ -1,11 +1,6 @@
 {
   "objects": [
     {
-      "id": "2",
-      "name": "C",
-      "description": "A powerful low-level programming language used for system programming and embedded systems."
-    },
-    {
       "id": "3",
       "name": "Java",
       "description": "Object-oriented, platform-independent, widely used for enterprise and Android applications."
@@ -41,14 +36,19 @@
       "description": "A systems programming language focused on safety, concurrency, and performance."
     },
     {
+      "id": "10",
       "name": "Django",
-      "description": "A high-level Python web framework that encourages rapid development and clean design.",
-      "id": "10"
+      "description": "A high-level Python web framework that encourages rapid development and clean design."
     },
     {
       "id": "1",
       "name": "C++",
       "description": "An extension of C with object-oriented features, widely used for games engines and performance-critical problems."
+    },
+    {
+      "id": "2",
+      "name": "C",
+      "description": "A powerful low-level language widely used for system programming, embedded systems, and OS development. Known for speed and efficiency."
     }
   ]
 }

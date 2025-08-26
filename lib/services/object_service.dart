@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import '../models/object_model.dart';
 
 class ObjectService {
-  static const String baseUrl = "http://localhost:3000/objects"; // Replace with deployed API when needed
+  // ✅ Use 127.0.0.1 instead of localhost to avoid https redirect
+  static const String baseUrl = "http://127.0.0.1:3000/objects";
 
   static Future<List<ObjectModel>> getObjects() async {
     final response = await http.get(Uri.parse(baseUrl));
@@ -19,9 +20,12 @@ class ObjectService {
     final response = await http.post(
       Uri.parse(baseUrl),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode(object.toJson()),
+      body: jsonEncode({
+        "id": object.id,
+        "name": object.name,
+        "description": object.description,
+      }),
     );
-
     if (response.statusCode != 201 && response.statusCode != 200) {
       throw Exception("Failed to add object: ${response.statusCode}");
     }
@@ -31,9 +35,12 @@ class ObjectService {
     final response = await http.put(
       Uri.parse("$baseUrl/${object.id}"),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode(object.toJson()),
+      body: jsonEncode({
+        "id": object.id,
+        "name": object.name,
+        "description": object.description,
+      }),
     );
-
     if (response.statusCode != 200) {
       throw Exception("Failed to update object: ${response.statusCode}");
     }
