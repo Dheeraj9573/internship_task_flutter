@@ -59,6 +59,17 @@ Download and install the Android app directly from this mobile-friendly link:
 
 ---
 
+## 📲 Test Credentials (for development)
+
+To test Firebase Phone Authentication without real OTP SMS:  
+
+- **Phone Number:** `+919573021178`  
+- **OTP Code:** `123456`  
+
+👉 Enter the phone number on the login screen, then enter the test OTP to access the dashboard.  
+
+---
+
 
 ## 🖼️ Screenshots
 
