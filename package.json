@@ -2,14 +2,10 @@
   "name": "internship_task",
   "version": "1.0.0",
   "description": "A Flutter project developed as part of my **Frontend Development Internship Assignment**. This app demonstrates **CRUD operations** (Create, Read, Update, Delete) using a REST API powered by **json-server**.",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "json-server --watch db.json --port 3000"
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -23,6 +19,6 @@
   },
   "homepage": "https://github.com/Dheeraj9573/internship_task_flutter#readme",
   "dependencies": {
-    "json-server": "^1.0.0-beta.3"
+    "json-server": "^0.17.4"
   }
 }
