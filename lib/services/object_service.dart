@@ -4,7 +4,7 @@ import '../models/object_model.dart';
 
 class ObjectService {
   // ✅ Use 127.0.0.1 instead of localhost to avoid https redirect
-  static const String baseUrl = "http://localhost:3000/objects";
+  static const String baseUrl = "https://internship-task-flutter-paxm1b1m0-dheerajs-projects-d0e22280.vercel.ap";
 
   static Future<List<ObjectModel>> getObjects() async {
     final response = await http.get(Uri.parse(baseUrl));
